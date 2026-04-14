@@ -35,7 +35,7 @@ def load_user(user_id):
 @app.route('/')
 @login_required
 def index():
-    past_messages = list(message_collection.find({}, {'_id': 0}).sort('_id', -1))
+    past_messages = list(message_collection.find({}, {'_id': 0}).sort('_id', 1))
     return render_template('index.html', messages=past_messages)
 
 @app.route('/login', methods=['GET', 'POST'])
