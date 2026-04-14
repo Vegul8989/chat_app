@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height:100vh;
+                margin: 0;
+                background-color: #36393f;
+                color:white;
+            }
+            .box {
+                background-color: #2f3136;
+                padding: 40px;
+                border-radius: 10px;
+                width:300px;
+            }
+            h2{
+                margin-bottom: 20px;
+                text-align: center;
+            }
+            input{
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 15px;
+                border-radius: 5px;
+                border: none;
+                background-color: #40444b;
+                color: white;
+                box-sizing: border-box;
+            }
+            button{
+                width: 100%;
+                padding: 10px;
+                background-color: #5865f2;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            .error{
+                color: #ff4444;
+                margin-bottom: 10px;
+            }
+            a {
+                color: #5865f2;
+                display:block;
+                text-align: center;
+                margin-top: 15px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="box">
+            <h2>ログイン</h2>
+            {% if error%}
+            <p class="error">{{ error }}</p>
+            {% endif %}
+            <form method="POST">
+                <input type="text" name="username" placeholder="ユーザー名">
+                <input type="password" name="password" placeholder="パスワード">
+                <button type="submit">ログイン</button>
+            </form>
+            <a href="/register">アカウント登録はこちら</a>
+        </div>
+    </body>
+</html>
