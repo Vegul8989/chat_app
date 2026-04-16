@@ -89,11 +89,25 @@ def get_dm(username):
     },{'_id': 0}).sort('_id', 1))
     return jsonify(dm_messages)
 
-
 @socketio.on('message')
 def handle_message(data):
     message_collection.insert_one({'text': data, 'username': current_user.username})
     emit('message', {'text': data, 'username': current_user.username}, broadcast=True)
+
+@socketio.on('dm')
+def handle_dm(data):
+    db['dm_messages'].insert_one({
+        'from': current_user.username,
+        'to': data['to'],
+        'text': data['text'],
+        'username': current_user.username
+    })
+    emit('dm', {
+        'from': current_user.username,
+        'to':data['to'],
+        'text': data['text'],
+        'username': current_user.username
+    }, broadcast=True)
 
 
 if __name__ == '__main__':
