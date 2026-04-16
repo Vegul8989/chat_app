@@ -114,7 +114,7 @@
             const text = input.value;
             if(text === '')return
             if(currentDM){
-                socket.emit('dm', {tocurrentDM, text: text});
+                socket.emit('dm', {currenDM, text: text});
             }else{
                 socket.emit('message', text);
             }
