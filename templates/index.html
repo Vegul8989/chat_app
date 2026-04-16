@@ -102,7 +102,7 @@
            .then(response => response.json())
            .then(data => {
             data.forEach(msg => {
-                messages.insertAdjacenHTML('beforeend', '<p>' + msg.username + ': ' + msg.text + '</p>');
+                messages.insertAdjacentHTML('beforeend', '<p>' + msg.username + ': ' + msg.text + '</p>');
             });
            });
         }
@@ -115,7 +115,7 @@
             const text = input.value;
             if(text === '')return
             if(currentDM){
-                socket.emit('dm', {currentDM, text: text});
+                socket.emit('dm', {to: currentDM, text: text});
             }else{
                 socket.emit('message', text);
             }
