@@ -77,6 +77,18 @@ def get_users():
     users = list(users_collection.find({}, {'_id': 0, 'password': 0}))
     return jsonify(users)
 
+@app.route('/dm/<username>')
+@login_required
+def get_dm(username):
+    from flask import jsonify
+    dm_messages = list(db['dm_messages'].find({
+        '$or':[
+            {'from': current_user.username, 'to': username},
+            {'from': username, 'to': current_user.username}
+        ]
+    },{'_id': 0}).sort('_id', 1))
+    return jsonify(dm_messages)
+
 
 @socketio.on('message')
 def handle_message(data):

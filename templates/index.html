@@ -94,7 +94,15 @@
         });
 
         function openDM(username) {
-            alert(username + 'さんにDM');
+           currentDM = username;
+           document.getElementById('messages').innerHTML = '';
+           fetch('/dm/' + username)
+           .then(response => response.json())
+           .then(data => {
+            data.forEach(msg => {
+                messages.insertAdjacenHTML('beforeend', '<p>' + msg.username + ': ' + msg.text + '</p>');
+            });
+           });
         }
         const socket = io();
         const button = document.querySelector('button');
