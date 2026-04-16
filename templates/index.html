@@ -134,8 +134,14 @@
         });
 
         socket.on('message', function(data){
-            messages.insertAdjacentHTML('beforeend', '<p>' +data.username + ': ' + data.text + '</p>');
-
+            if(!currentDM){
+                messages.insertAdjacentHTML('beforeend', '<p>' +data.username + ': ' + data.text + '</p>');
+            }
+        });
+        socket.on('dm', function(data){
+            if(currentDM === data.from || currentDM === data.to){
+                messages.insertAdjacentHTML('beforeend', '<p>' +data.username + ': ' + data.text + '</p>');
+            }
         });
     </script>     
   </body>
