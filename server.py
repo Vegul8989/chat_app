@@ -70,6 +70,13 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
+@app.route('/users')
+@login_required
+def get_users():
+    from flask import jsonify
+    users = list(users_collection.find({}, {'_id': 0, 'password': 0}))
+    return jsonify(users)
+
 
 @socketio.on('message')
 def handle_message(data):
